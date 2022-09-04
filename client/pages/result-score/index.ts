@@ -86,7 +86,6 @@ class ResultScore extends HTMLElement {
                 </div>
         </div>
         <button class="boton-volver boton">Volver a Jugar</button>
-        <button class="boton-reinicio boton">Reiniciar Score</button>
     </div>
         `;
 
@@ -209,12 +208,15 @@ class ResultScore extends HTMLElement {
 
     botonVolverEl.addEventListener("click", (e) => {
       e.preventDefault();
+      state.pushEnd();
       Router.go("./instructions");
     });
 
+    /*
     //con este boton reiniciamos el historial
     const botonReinicioEl = document.querySelector(".boton-reinicio") as any;
 
+  
     botonReinicioEl.addEventListener("click", (e) => {
       e.preventDefault();
       const newData = state.getState();
@@ -222,7 +224,7 @@ class ResultScore extends HTMLElement {
       state.setState(newData);
 
       Router.go("./instructions");
-    });
+    });*/
   }
 }
 customElements.define("result-score-page", ResultScore);

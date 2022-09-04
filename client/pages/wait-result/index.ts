@@ -16,25 +16,46 @@ function timerEspera() {
     para que no me cuente una jugada extra */
 
     if (counter == 1) {
-      cuentaRegresiva.textContent = "3";
+      cuentaRegresiva.textContent = "10";
     }
     if (counter == 2) {
-      cuentaRegresiva.textContent = "2";
+      cuentaRegresiva.textContent = "9";
     }
     if (counter == 3) {
-      cuentaRegresiva.textContent = "1";
+      cuentaRegresiva.textContent = "8";
     }
-
-    /* Si pasan mas de 3 segundos osea 4 se corta la funcion
-    y vuelve a instrucciones porque si llego a 4 significa
-    que no eligieron antes de los 4seg */
-    if (counter > 3) {
+    if (counter == 4) {
+      cuentaRegresiva.textContent = "7";
+    }
+    if (counter == 5) {
+      cuentaRegresiva.textContent = "6";
       const cs = state.getState();
       if (cs.usersData.player == "playerUno") {
         state.pushHistoryDB(() => {
           console.log("estoy pusheando el history");
         });
       }
+    }
+    if (counter == 6) {
+      cuentaRegresiva.textContent = "5";
+    }
+    if (counter == 7) {
+      cuentaRegresiva.textContent = "4";
+    }
+    if (counter == 8) {
+      cuentaRegresiva.textContent = "3";
+    }
+    if (counter == 9) {
+      cuentaRegresiva.textContent = "2";
+    }
+    if (counter == 10) {
+      cuentaRegresiva.textContent = "1";
+    }
+
+    /* Si pasan mas de 3 segundos osea 4 se corta la funcion
+    y vuelve a instrucciones porque si llego a 4 significa
+    que no eligieron antes de los 4seg */
+    if (counter > 10) {
       clearInterval(intervalId);
       Router.go("/result");
     }
@@ -44,7 +65,6 @@ function timerEspera() {
 class WaitResult extends HTMLElement {
   connectedCallback() {
     this.render();
-
     timerEspera();
   }
 

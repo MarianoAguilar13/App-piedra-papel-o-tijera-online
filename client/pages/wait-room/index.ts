@@ -57,6 +57,7 @@ function timerJugada() {
     y vuelve a instrucciones porque si llego a 4 significa
     que no eligieron antes de los 4seg */
     if (counter > 10) {
+      state.pushEnd();
       clearInterval(intervalId);
       Router.go("/instructions");
     }

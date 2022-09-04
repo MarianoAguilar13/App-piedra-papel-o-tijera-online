@@ -8,9 +8,9 @@ import {
 } from "../node_modules/firebase/database";
 import map from "../node_modules/lodash";
 
-//const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://localhost:3000";
 
-const API_BASE_URL = "https://app-piedra-papel-o-tijeras.herokuapp.com";
+//const API_BASE_URL = "https://app-piedra-papel-o-tijeras.herokuapp.com";
 
 type Jugada = "piedra" | "papel" | "tijeras";
 type Game = {
@@ -442,6 +442,34 @@ const state = {
     }
   },
 
+  pushEnd() {
+    const currentState = this.getState();
+    //si el estate tiene guardado un idUser entonces hace un post
+    // a la api "/rooms" el cual creara la room en la bd y en la
+    //rtdb
+    if (currentState.usersData.idUser) {
+      fetch(API_BASE_URL + "/player/start", {
+        method: "post",
+        //necesita este header para que funcione
+        headers: {
+          "content-type": "application/json",
+        },
+
+        body: JSON.stringify({
+          player: currentState.usersData.player,
+          userId: currentState.usersData.idUser,
+          roomLongId: currentState.usersData.roomIdLargo,
+          start: "false",
+          name: currentState.usersData.myName,
+        }),
+      }).then((res) => {
+        res.json().then(() => {});
+      });
+    } else {
+      console.error("El state no tiene ningun idUser");
+    }
+  },
+
   pushPlay() {
     const currentState = this.getState();
     //si el estate tiene guardado un idUser entonces hace un post
@@ -516,6 +544,36 @@ const state = {
     } else {
       console.error("El state no tiene ningun idUser");
     }
+  },
+
+  jugadaRandom() {
+    /*Esta funcion genera "aleatoriamente" una jugada de la compu
+    para que despues matchee con la del player */
+
+    type Jugada = "piedra" | "papel" | "tijeras";
+
+    let min = 0;
+    let max = 3;
+    let computerJugada: Jugada;
+
+    function getRandomArbitrary(min, max) {
+      let random = Math.random() * (max - min) + min;
+      return Math.trunc(random);
+    }
+
+    let numAleatorio = getRandomArbitrary(min, max);
+
+    if (numAleatorio == 0) {
+      computerJugada = "piedra";
+    } else {
+      if (numAleatorio == 1) {
+        computerJugada = "papel";
+      } else {
+        computerJugada = "tijeras";
+      }
+    }
+
+    return computerJugada;
   },
 };
 

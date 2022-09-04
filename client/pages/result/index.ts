@@ -139,7 +139,6 @@ class Result extends HTMLElement {
     if (botonScoreEl != null) {
       botonScoreEl.addEventListener("click", (e) => {
         e.preventDefault();
-
         Router.go("/result-score");
       });
     }

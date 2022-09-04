@@ -9,7 +9,6 @@ class Instructions extends HTMLElement {
     state.conectRoomRt();
 
     state.pushDatosInicialesRtdb(() => {
-      console.log("todo ok");
       const boton = document.querySelector(".boton") as any;
       boton.addEventListener("click", (evento) => {
         evento.preventDefault();
@@ -35,8 +34,8 @@ class Instructions extends HTMLElement {
   render() {
     this.innerHTML = `
               <div class="container">
-                  <h3 class="texto-instructions">Presioná jugar
-                  y elegí: piedra, papel o tijera antes de que pasen los 3 segundos.</h3>
+                  <p class="texto-instructions">Presioná jugar
+                  y elegí: piedra, papel o tijera antes de que pasen los 3 segundos, pasados los 3 segundos se eligirá una opción al azar.</p>
                   <button-normal-el class="boton"> ¡Jugar! </button-normal-el>
                   <tijeras-el class= "tijeras-img"></tijeras-el>                
                   <piedra-el class= "piedra-img"></piedra-el>
@@ -63,18 +62,18 @@ class Instructions extends HTMLElement {
                       .texto-instructions {
                           font-family: "Poppins", sans-serif;
                           font-weight: 700;
-                          font-size: 36px;
+                          font-size: 28px;
                           text-align: center;
                           color: black;
-                          margin-top: 40px;
-                          margin-bottom: 60px;
+                          margin-top: 20px;
+                          margin-bottom: 20px;
                       }
                       
                       @media (min-width: 600px) {
                           .texto-instructions {               
-                          font-size: 36px;                         
-                          margin-top: 40px;
-                          margin-bottom: 60px;
+                          font-size: 28px;                         
+                          margin-top: 20px;
+                          margin-bottom: 20px;
                           }
                       } 
                       

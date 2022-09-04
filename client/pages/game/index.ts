@@ -7,37 +7,38 @@ function timerJugada() {
   let counter = 0;
 
   //este div me mostrara en pantalla la cuenta regresiva
-  const cuentaRegresiva = document.querySelector(
-    ".container-cuenta-regresiva"
-  ) as any;
 
   const intervalId = setInterval(() => {
     counter++;
+
+    const cuentaRegresiva = document.querySelector(
+      ".container-cuenta-regresiva"
+    ) as any;
 
     //Cuenta regresiva
     /*Creo que el error esta aca, deberia comenzar de 0
     para que no me cuente una jugada extra */
 
     if (counter == 1) {
-      cuentaRegresiva.textContent = "5";
-    }
-    if (counter == 2) {
-      cuentaRegresiva.textContent = "4";
-    }
-    if (counter == 3) {
       cuentaRegresiva.textContent = "3";
     }
-    if (counter == 4) {
+    if (counter == 2) {
       cuentaRegresiva.textContent = "2";
     }
-    if (counter == 5) {
+    if (counter == 3) {
       cuentaRegresiva.textContent = "1";
     }
 
     /* Si pasan mas de 3 segundos osea 4 se corta la funcion
     y vuelve a instrucciones porque si llego a 4 significa
     que no eligieron antes de los 4seg */
-    if (counter > 5) {
+    if (counter > 3) {
+      let myJugada: Jugada;
+      const newData = state.getState();
+      myJugada = state.jugadaRandom();
+      newData.usersData.myPlay = myJugada;
+      state.setState(newData);
+      state.pushPlay();
       clearInterval(intervalId);
       Router.go("/wait-result");
     }
