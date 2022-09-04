@@ -4,5 +4,6 @@
     "module": "commonjs",
     "resolveJsonModule": true
   },
-  "exclude": ["./client"]
+  "exclude": ["./client"],
+  "files": ["./server/index.ts"]
 }
