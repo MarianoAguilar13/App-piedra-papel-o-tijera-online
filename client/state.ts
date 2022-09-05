@@ -8,9 +8,9 @@ import {
 } from "../node_modules/firebase/database";
 import map from "../node_modules/lodash";
 
-//const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://localhost:3000";
 
-const API_BASE_URL = "https://app-piedra-papel-o-tijeras.herokuapp.com";
+//const API_BASE_URL = "https://app-piedra-papel-o-tijeras.herokuapp.com";
 
 type Jugada = "piedra" | "papel" | "tijeras";
 type Game = {
@@ -284,17 +284,20 @@ const state = {
         },
       }
     ).then((res) => {
-      console.log("esto tiene res" + res);
-
       res.json().then((resultado) => {
         //una vez que el backen creo la sala guardo el roomIdLargo
         //en el state para despues conectarme a este cuando entre
         //al chat y me conecte a la room con el onValue
-        console.log("este es la data de la api roomidlargo" + resultado);
+        if (resultado.message) {
+          console.error(resultado.message);
+          callback();
+        } else {
+          console.log("este es la data de la api roomidlargo" + resultado);
 
-        const roomIdLargo = resultado;
-        state.setRoomIdLargo(roomIdLargo);
-        callback();
+          const roomIdLargo = resultado;
+          state.setRoomIdLargo(roomIdLargo);
+          callback();
+        }
       });
     });
   },

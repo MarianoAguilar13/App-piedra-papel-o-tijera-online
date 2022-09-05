@@ -5,6 +5,11 @@ class IngresarCodigoRoom extends HTMLElement {
   connectedCallback() {
     this.render();
 
+    const botonIngresarCod = document.querySelector(".boton") as any;
+    botonIngresarCod.addEventListener("click", (e) => {
+      botonIngresarCod.style.visibility = "hidden";
+    });
+
     const form = this.querySelector(".form-user");
     if (form) {
       form.addEventListener("submit", (e) => {
@@ -19,9 +24,18 @@ class IngresarCodigoRoom extends HTMLElement {
         console.log(roomIdCorto);
 
         state.roomIdLargo(() => {
-          state.whoIsPlayer(() => {
-            Router.go("./instructions");
-          });
+          const dataCs = state.getState();
+          if (dataCs.usersData.roomIdLargo) {
+            state.whoIsPlayer(() => {
+              state.pushEnd();
+              Router.go("./instructions");
+            });
+          } else {
+            alert(
+              "La room a la que desea entrar no existe, cree una nueva o verifique que haya ingresada el código correcto."
+            );
+            Router.go("./opciones-rooms");
+          }
         });
       });
     }

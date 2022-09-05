@@ -72,9 +72,13 @@ class WaitRoom extends HTMLElement {
   }
 
   render() {
+    const dataCs = state.getState();
+    const roomCod = dataCs.usersData.roomIdCorto;
+
     this.innerHTML = `
               <div class="container">
                   <h3 class="texto-instructions">Esperando al oponente.</h3>
+                  <p class="room-cod"> codigo-room: ${roomCod}</p>
                   <h1 class="container-cuenta-regresiva"></h1>
               </div>
 
@@ -122,6 +126,15 @@ class WaitRoom extends HTMLElement {
                           margin-bottom: 60px;
                           }
                       } 
+
+                      .room-cod{
+                        font-family: "Poppins", sans-serif;
+                        font-weight: 700;
+                        position: fixed;
+                        font-size: 24px;
+                        top: 20px;
+                        left: 20px;
+                    }
                       
                       .piedra-img {
                         height: 150px;

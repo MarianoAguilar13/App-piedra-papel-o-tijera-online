@@ -73,8 +73,13 @@ class ResultScore extends HTMLElement {
       }
     });
 
+    const dataCs = state.getState();
+    const roomCod = dataCs.usersData.roomIdCorto;
+
     this.innerHTML = `
+    
     <div class="container">
+      <p class="room-cod"> codigo-room: ${roomCod}</p>
         <div class="container-page">
                 <h3 class="resultado-titulo"></h3>
                 <div class="container-score">
@@ -190,6 +195,15 @@ class ResultScore extends HTMLElement {
     text-align: end;
     color: var(--titulos);
   }
+
+  .room-cod{
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    position: fixed;
+    font-size: 24px;
+    top: 20px;
+    left: 20px;
+}
 
   `;
     this.appendChild(style);

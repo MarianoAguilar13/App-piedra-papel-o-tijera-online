@@ -123,8 +123,12 @@ class Game extends HTMLElement {
   }
 
   render() {
+    const dataCs = state.getState();
+    const roomCod = dataCs.usersData.roomIdCorto;
+
     this.innerHTML = `
                 <div class="container">
+                <p class="room-cod"> codigo-room: ${roomCod}</p>
                 <h3 class="texto-instructions">Elija su opción.</h3>
                     <h1 class="container-cuenta-regresiva"></h1>
                     <tijeras-el class= "tijeras-img"></tijeras-el>                
@@ -167,6 +171,15 @@ class Game extends HTMLElement {
                             color: var(--titulos);
                             margin-top: 100px;
                         }
+
+                        .room-cod{
+                          font-family: "Poppins", sans-serif;
+                          font-weight: 700;
+                          position: fixed;
+                          font-size: 24px;
+                          top: 20px;
+                          left: 20px;
+                      }
 
                         .piedra-img {
                             height: 150px;

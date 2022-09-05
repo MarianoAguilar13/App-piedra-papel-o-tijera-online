@@ -7,6 +7,10 @@ function timerEspera() {
   const intervalId = setInterval(() => {
     counter++;
 
+    const containerInstruction = document.querySelector(
+      ".texto-instructions"
+    ) as any;
+
     const cuentaRegresiva = document.querySelector(
       ".container-cuenta-regresiva"
     ) as any;
@@ -25,6 +29,8 @@ function timerEspera() {
       cuentaRegresiva.textContent = "8";
     }
     if (counter == 4) {
+      containerInstruction.textContent =
+        "Calculando el ganador de la partida...";
       cuentaRegresiva.textContent = "7";
     }
     if (counter == 5) {
@@ -40,6 +46,8 @@ function timerEspera() {
       cuentaRegresiva.textContent = "5";
     }
     if (counter == 7) {
+      containerInstruction.textContent =
+        "Calculando el historial de los jugadores...";
       cuentaRegresiva.textContent = "4";
     }
     if (counter == 8) {
@@ -69,9 +77,13 @@ class WaitResult extends HTMLElement {
   }
 
   render() {
+    const dataCs = state.getState();
+    const roomCod = dataCs.usersData.roomIdCorto;
+
     this.innerHTML = `
               <div class="container">
-                  <h3 class="texto-instructions">Esperando a que el oponente termine de elegir su opción.</h3>
+                  <h3 class="texto-instructions">Esperando a que el oponente termine de elegir su opción...</h3>
+                  <p class="room-cod"> codigo-room: ${roomCod}</p>
                   <h1 class="container-cuenta-regresiva"></h1>
               </div>
 
@@ -117,6 +129,15 @@ class WaitResult extends HTMLElement {
                           margin-bottom: 60px;
                           }
                       } 
+
+                      .room-cod{
+                        font-family: "Poppins", sans-serif;
+                        font-weight: 700;
+                        position: fixed;
+                        font-size: 24px;
+                        top: 20px;
+                        left: 20px;
+                    }
                       
                       .piedra-img {
                         height: 150px;

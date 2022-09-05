@@ -61,7 +61,6 @@ app.post("/auth", (req, res) => {
     .get()
     .then((searchResponse) => {
       //si el email no lo encuentra envia un error
-      console.log(searchResponse);
 
       if (searchResponse.empty) {
         res.status(404).json({
@@ -182,11 +181,17 @@ app.get("/rooms/:roomId", (req, res) => {
           .doc(roomId)
           .get()
           .then((snap) => {
-            const data = snap.data();
-            //en data solo existe el id"dificil" que esta dentro
-            //de la room de la fs, pero para devolver directamente
-            //el id"dificil" vamos a enviar data.rtdbRoomId
-            res.json(data.rtdbRoomId);
+            if (snap.exists) {
+              const data = snap.data();
+              //en data solo existe el id"dificil" que esta dentro
+              //de la room de la fs, pero para devolver directamente
+              //el id"dificil" vamos a enviar data.rtdbRoomId
+              res.json(data.rtdbRoomId);
+            } else {
+              res.status(401).json({
+                message: "La room no existe, codigo-room incorrecto",
+              });
+            }
           });
       } else {
         res.status(401).json({

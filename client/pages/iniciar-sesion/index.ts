@@ -5,10 +5,16 @@ class IniciarSesion extends HTMLElement {
   connectedCallback() {
     this.render();
 
+    const botonInicio = document.querySelector(".boton") as any;
+    botonInicio.addEventListener("click", (e) => {
+      botonInicio.style.visibility = "hidden";
+    });
+
     const form = this.querySelector(".form-user");
     if (form) {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+
         const target = e.target as any;
 
         const email = target.email.value;
@@ -26,20 +32,20 @@ class IniciarSesion extends HTMLElement {
         //si esta
 
         state.auth(() => {
-          state.getSetName(() => {
-            const cs = state.getState();
-            //si existe entonces vamos a la pag de "/room"
-            if (cs.usersData.idUser) {
+          const cs = state.getState();
+          //si existe entonces vamos a la pag de "/room"
+          if (cs.usersData.idUser) {
+            state.getSetName(() => {
               Router.go("/opciones-rooms");
-            } else {
-              //sino existe le decimos al usuario que no tiene una cuenta creada
-              //y lo redirecciono hacia la pag encargada de crear una cuenta
-              alert(
-                "Su email no esta registrado, por favor cree una cuenta para continuar"
-              );
-              Router.go("/crear-cuenta");
-            }
-          });
+            });
+          } else {
+            //sino existe le decimos al usuario que no tiene una cuenta creada
+            //y lo redirecciono hacia la pag encargada de crear una cuenta
+            alert(
+              "Su email no esta registrado, por favor cree una cuenta para continuar"
+            );
+            Router.go("/crear-cuenta");
+          }
         });
 
         //el nombre que se envia en el formulario, lo seteo en el

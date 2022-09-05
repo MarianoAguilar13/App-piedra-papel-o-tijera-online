@@ -5,6 +5,11 @@ class CrearCuenta extends HTMLElement {
   connectedCallback() {
     this.render();
 
+    const botonCrear = document.querySelector(".boton") as any;
+    botonCrear.addEventListener("click", (e) => {
+      botonCrear.style.visibility = "hidden";
+    });
+
     const form = this.querySelector(".form-user");
     if (form) {
       form.addEventListener("submit", (e) => {
@@ -29,6 +34,9 @@ class CrearCuenta extends HTMLElement {
           //y si existe se crea la cuenta y lo redirecciona a la pag "/signin"
           const cs = state.getState();
           if (cs.usersData.email) {
+            alert(
+              "Usted ya se encuentra registrado, ingrese sesión con este mismo email."
+            );
             Router.go("/iniciar-sesion");
           } else {
             alert(
