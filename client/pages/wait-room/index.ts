@@ -11,9 +11,9 @@ function timerJugada() {
       ".container-cuenta-regresiva"
     ) as any;
 
-    //Cuenta regresiva
-    /*Creo que el error esta aca, deberia comenzar de 0
-    para que no me cuente una jugada extra */
+    //va a repetir por cada seg durante 10s la función, para verificar
+    //que ambos esten en start por lo tanto que ambos apreten en jugar
+    //en un intervalo de 10 seg
 
     const ambosStart = state.playersStart();
     if (ambosStart) {
@@ -53,9 +53,9 @@ function timerJugada() {
     if (counter == 11) {
       cuentaRegresiva.textContent = "0";
     }
-    /* Si pasan mas de 3 segundos osea 4 se corta la funcion
-    y vuelve a instrucciones porque si llego a 4 significa
-    que no eligieron antes de los 4seg */
+
+    //si pasaron los 10s y el otro jugador no acepto vuelvo a apagar
+    //el start hasta que aprete de nuevo en el boton jugar
     if (counter > 10) {
       state.pushEnd();
       clearInterval(intervalId);

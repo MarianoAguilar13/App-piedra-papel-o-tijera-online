@@ -18,6 +18,8 @@ class ResultScore extends HTMLElement {
     let nombrePlayer;
     let nombrePlayerVs;
 
+    //aca identifico de quien es cada jugada para calcular el resultado
+    //de la partida y los nombres para ubicarlos con la perspectiva de cada usuario
     if (newData.usersData.player == "playerUno") {
       jugadaPlayerVs = currentGame.playerDos.choice;
       jugadaPlayer = currentGame.playerUno.choice;
@@ -30,12 +32,10 @@ class ResultScore extends HTMLElement {
       nombrePlayerVs = currentGame.playerUno.name;
     }
 
-    //guardo el ultimo game y las jugadas del ultimo game
-
-    //whoWins es un metodo del state que nos permite ver quien gano
-    //pasandole 2 jugadas, luego guardo ese resultado
+    //aca matcheo las jugadas de los 2 y verifico quien gano
     const resultMatch = state.whoWins(jugadaPlayer, jugadaPlayerVs);
 
+    //obtengo el historial
     const historyRecorrer = newData.history;
 
     let winPlayerVs = 0;
@@ -44,6 +44,8 @@ class ResultScore extends HTMLElement {
     //paso el objeto a un array para aplicarle map o for of y recorrerlo
     const arrayHistory = Object.values(historyRecorrer) as any;
 
+    //por cada game del array, veo si estan los 2 jugadores actuales
+    //y calculo quien gano de los 2 para ir sumando puntos cuando gana
     arrayHistory.map((gameActual) => {
       if (
         newData.currentGame.playerUno.userId ==
@@ -225,20 +227,6 @@ class ResultScore extends HTMLElement {
       state.pushEnd();
       Router.go("./instructions");
     });
-
-    /*
-    //con este boton reiniciamos el historial
-    const botonReinicioEl = document.querySelector(".boton-reinicio") as any;
-
-  
-    botonReinicioEl.addEventListener("click", (e) => {
-      e.preventDefault();
-      const newData = state.getState();
-      newData.history = [{}];
-      state.setState(newData);
-
-      Router.go("./instructions");
-    });*/
   }
 }
 customElements.define("result-score-page", ResultScore);

@@ -8,12 +8,14 @@ class Instructions extends HTMLElement {
     //aca me conecto a la RTDB
     state.conectRoomRt();
 
+    //ingreso los datos iniciales a la rtdb
     state.pushDatosInicialesRtdb(() => {
       const boton = document.querySelector(".boton") as any;
       boton.addEventListener("click", (evento) => {
         evento.preventDefault();
+        //si hizo click en el boton jugar, entonces pongo a start en start
+        //lo que indica que esta listo para jugar
         state.pushStart(() => {
-          //const ambosStart = state.playersStart();
           Router.go("/wait-room");
         });
       });
@@ -117,11 +119,6 @@ class Instructions extends HTMLElement {
                     }
                     `;
     this.appendChild(style);
-    /*
-    const boton = document.querySelector(".boton") as any;
-    boton.addEventListener("click", (evento) => {
-      evento.preventDefault();
-    });*/
   }
 }
 customElements.define("instructions-page", Instructions);

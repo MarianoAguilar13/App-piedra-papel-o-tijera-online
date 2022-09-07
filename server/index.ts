@@ -6,9 +6,6 @@ import { v4 as uuidv4 } from "../node_modules/uuid";
 const port = process.env.PORT || 3000;
 const app = express();
 
-//la app(api) tiene incluido la funcion json de express, por
-//lo tanto se podra usar en toda la api y enviar objetos del body
-//mediante postman, el cors y este .json() se llaman midleware
 app.use(express.json());
 app.use(cors());
 
@@ -17,17 +14,18 @@ app.use(express.static("dist"));
 const usersCollection = firestore.collection("users");
 const roomsCollection = firestore.collection("rooms");
 
+//si el email no esta guardado, entonces creo un user con ese nombre
+//y con el email, tambien envio el id con el que se creo
 app.post("/signup", function (req, res) {
   const email = req.body.email;
   const nombre = req.body.nombre;
-  //aca vamos a buscar en la DB con el where si, hay algun usuario
-  //con email igual al email pasado por el body
+
   usersCollection
     .where("email", "==", email)
     .get()
     .then((searchResponse) => {
-      //si el email no existe entonces lo voy a agregar para crear
-      //el id y si ya existe envio devuelvo el id al state
+      //el searchResponse que es la respuesta del get, siempre me trae
+      //una lista por mas que solo un usuario tiene ese email
       if (searchResponse.empty) {
         //con el add agrego el usuario con el email y nombre
         //generando el id y lo envio al state/front
@@ -42,8 +40,6 @@ app.post("/signup", function (req, res) {
             });
           });
       } else {
-        //el searchResponse que es la respuesta del get, siempre me trae
-        //una lista por mas que solo un usuario tiene ese email
         res.status(400).json({
           message: "user already exists",
         });
@@ -51,9 +47,8 @@ app.post("/signup", function (req, res) {
     });
 });
 
+//con el auth verifico si existe un users con el mail y si existe envio el id
 app.post("/auth", (req, res) => {
-  //las llaves me indica que va a pedirle al body la propiedad email
-  //y va a crear una constante con el mismo nombre
   const { email } = req.body;
 
   usersCollection
@@ -67,17 +62,16 @@ app.post("/auth", (req, res) => {
           message: "not found",
         });
       } else {
-        //si el email se encontro significa que el usuario esta creado
-        //y le enviamos su id para que el state tenga ese dato y el
-        //fornt pueda realizar sus operaciones con el mismo
-
         res.json({
+          //el searchResponse que es la respuesta del get, siempre me trae
+          //una lista por mas que solo un usuario tiene ese email
           id: searchResponse.docs[0].id,
         });
       }
     });
 });
 
+//devuelve el nombre del usuario cuyo id pasamos por parametro
 app.get("/nombre/:userId", (req, res) => {
   const { userId } = req.params;
 
@@ -89,11 +83,9 @@ app.get("/nombre/:userId", (req, res) => {
       if (snap.exists) {
         const data = snap.data();
 
+        //respondo el nombre del usuario del id buscado
         res.json({ nombre: data.nombre });
-      }
-      //despues buesca entre los room el que tenga el id"corto"
-      //pasado por parametro para obtener el id largo
-      else {
+      } else {
         res.status(401).json({
           message: "no existe el usuario",
         });
@@ -101,6 +93,8 @@ app.get("/nombre/:userId", (req, res) => {
     });
 });
 
+//creo la room en la db y tambien en la rtdb, devuelvo el id de
+//la room db que es el "roomIdCorto", que sirve para conectarse a la room
 app.post("/rooms", (req, res) => {
   const userId = req.body.userId;
   const { name } = req.body;
@@ -110,18 +104,25 @@ app.post("/rooms", (req, res) => {
     .then((doc) => {
       if (doc.exists) {
         //si existe el usario, entonces vamos a crear una room
-        //con un id creado con la libreria nanoid
+        //con un id
         const idRandom = uuidv4();
         const roomRef = rtdb.ref("rooms/" + idRandom);
 
-        //en la rooms/id va a crear messa y el owner que es quien
-        //creo la sala
+        //en la room rtdb seteo el playerUno que es el owner
+        //e inicio el array de jugadas
 
         roomRef
           .set({
             playerUno: {
               name: name.toString(),
               userId: userId.toString(),
+              choice: "ninguno",
+              online: "true",
+              start: "false",
+            },
+            playerDos: {
+              name: "",
+              userId: "",
               choice: "ninguno",
               online: "true",
               start: "false",
@@ -165,6 +166,8 @@ app.post("/rooms", (req, res) => {
     });
 });
 
+//sirve para pedir el roomIdLargo que es el id de la room rtdb
+//para despues poder conectarnos a esta y escuchar los cambio
 app.get("/rooms/:roomId", (req, res) => {
   const { userId } = req.query;
   const { roomId } = req.params;
@@ -201,6 +204,7 @@ app.get("/rooms/:roomId", (req, res) => {
     });
 });
 
+//conecta al jugador con sus datos, a la room de la rtdb
 app.post("/rooms/conect", (req, res) => {
   const { userId } = req.body;
   const { roomLongId } = req.body;
@@ -216,7 +220,7 @@ app.post("/rooms/conect", (req, res) => {
         const roomRef = rtdb.ref("rooms/" + roomLongId);
 
         //despues de chequear el userId voy a la rooms para ver
-        //si el ingresado es el owner (player1) o no, esa data de owner
+        //si el ingresado es el owner (playerUno) o no, esa data de owner
         //esta dentro de la rooms de la db
         roomsCollection
           .doc(roomId.toString())
@@ -270,6 +274,7 @@ app.get("/rooms/owner/:roomId", (req, res) => {
     });
 });
 
+//pusheo una play de un jugardor a la room de la rtdb
 app.post("/player/play", (req, res) => {
   const { userId } = req.body;
   const { name } = req.body;
@@ -297,6 +302,7 @@ app.post("/player/play", (req, res) => {
     });
 });
 
+//pusheo el estado de start="start" de un jugardor a la room de la rtdb
 app.post("/player/start", (req, res) => {
   const { userId } = req.body;
   const { name } = req.body;
@@ -323,6 +329,7 @@ app.post("/player/start", (req, res) => {
     });
 });
 
+//pusheo la ultima jugada al historial que se encuentra en la room de la rtdb
 app.post("/rooms/history", (req, res) => {
   const { idPlayerUno } = req.body;
   const { namePlayerUno } = req.body;

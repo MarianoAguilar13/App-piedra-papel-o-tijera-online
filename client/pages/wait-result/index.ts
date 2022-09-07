@@ -16,8 +16,6 @@ function timerEspera() {
     ) as any;
 
     //Cuenta regresiva
-    /*Creo que el error esta aca, deberia comenzar de 0
-    para que no me cuente una jugada extra */
 
     if (counter == 1) {
       cuentaRegresiva.textContent = "10";
@@ -36,6 +34,10 @@ function timerEspera() {
     if (counter == 5) {
       cuentaRegresiva.textContent = "6";
       const cs = state.getState();
+
+      //aca voy a pushear el history, el problema es que lo necesito
+      //pushear una vez por eso se me ocurrio esta forma para que si o si
+      //a cualquiera de los 2 le muestre el resultado
       if (cs.usersData.player == "playerUno") {
         state.pushHistoryDB(() => {
           console.log("estoy pusheando el history");

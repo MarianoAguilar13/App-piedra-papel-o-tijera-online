@@ -6,8 +6,6 @@ type Jugada = "piedra" | "papel" | "tijeras";
 function timerJugada() {
   let counter = 0;
 
-  //este div me mostrara en pantalla la cuenta regresiva
-
   const intervalId = setInterval(() => {
     counter++;
 
@@ -16,8 +14,6 @@ function timerJugada() {
     ) as any;
 
     //Cuenta regresiva
-    /*Creo que el error esta aca, deberia comenzar de 0
-    para que no me cuente una jugada extra */
 
     if (counter == 1) {
       cuentaRegresiva.textContent = "3";
@@ -29,9 +25,7 @@ function timerJugada() {
       cuentaRegresiva.textContent = "1";
     }
 
-    /* Si pasan mas de 3 segundos osea 4 se corta la funcion
-    y vuelve a instrucciones porque si llego a 4 significa
-    que no eligieron antes de los 4seg */
+    // Si pasan mas de 3 se elige una opción de manera automatica
     if (counter > 3) {
       let myJugada: Jugada;
       const newData = state.getState();
@@ -48,10 +42,9 @@ function timerJugada() {
     piedraEl.addEventListener("click", (e) => {
       e.preventDefault();
 
-      /*cuando hace click, la jugada elegida, se guarda en el state
-      y calcula la jugada de la compu con la funcion computerJuego
-      luego guarda la jugada en ultima jugada y pushea la nueva jugada
-      en el state de history*/
+      /*Cuando se hace click en la opcion, se carga la jugada al state
+      y se pushea la jugada a la rtdb 
+      */
 
       let myJugada: Jugada;
       const newData = state.getState();
@@ -59,9 +52,6 @@ function timerJugada() {
       newData.usersData.myPlay = myJugada;
       state.setState(newData);
       state.pushPlay();
-
-      /*Cuando clickea la mano, termina el conteo y va a resultados
-      la logica del state queda en el elemento piedra */
 
       Router.go("/wait-result");
       clearInterval(intervalId);
@@ -71,10 +61,9 @@ function timerJugada() {
 
     tijerasEl.addEventListener("click", (e) => {
       e.preventDefault();
-      /*cuando hace click, la jugada elegida, se guarda en el state
-      y calcula la jugada de la compu con la funcion computerJuego
-      luego guarda la jugada en ultima jugada y pushea la nueva jugada
-      en el state de history*/
+      /*Cuando se hace click en la opcion, se carga la jugada al state
+      y se pushea la jugada a la rtdb 
+      */
 
       let myJugada: Jugada;
       const newData = state.getState();
@@ -82,9 +71,6 @@ function timerJugada() {
       newData.usersData.myPlay = myJugada;
       state.setState(newData);
       state.pushPlay();
-
-      /*Cuando clickea la mano, termina el conteo y va a resultados
-      la logica del state queda en el elemento tijeras */
 
       Router.go("/wait-result");
       clearInterval(intervalId);
@@ -94,10 +80,9 @@ function timerJugada() {
 
     papelEl.addEventListener("click", (e) => {
       e.preventDefault();
-      /*cuando hace click, la jugada elegida, se guarda en el state
-      y calcula la jugada de la compu con la funcion computerJuego
-     luego guarda la jugada en ultima jugada y pushea la nueva jugada
-     en el state de history*/
+      /*Cuando se hace click en la opcion, se carga la jugada al state
+      y se pushea la jugada a la rtdb 
+      */
 
       let myJugada: Jugada;
       const newData = state.getState();
@@ -105,9 +90,6 @@ function timerJugada() {
       newData.usersData.myPlay = myJugada;
       state.setState(newData);
       state.pushPlay();
-
-      /*Cuando clickea la mano, termina el conteo y va a resultados
-  la logica del state queda en el elemento papel */
 
       Router.go("/wait-result");
       clearInterval(intervalId);

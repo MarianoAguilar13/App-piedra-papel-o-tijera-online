@@ -27,16 +27,16 @@ import { init as initTijerasEl } from "./components/tijeras-el";
 })();
 
 /* El localStorage, "history" se suscribe en el state, para que este
-  el history se mantenga actualizado con el historial */
+  el history se mantenga actualizado con el historial 
 
-/*
+
   state.subscribe(() => {
     const actualState = state.getState();
     const historyStingifeado = JSON.stringify(actualState.history);
     localStorage.setItem("history", historyStingifeado);
 
     console.log(localStorage.getItem("history"));
-  });*/
+  });
 
 /*Cuando ingresa a la pag si tiene un historial guardao el localstorage
   entonces lo carga al state para que tenga el historial de jugadas actualizado */

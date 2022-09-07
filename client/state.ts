@@ -45,6 +45,7 @@ const state = {
     currentState.currentGame.myPlay;
   },
 
+  //metodo para ver quien gano el game
   whoWins(myPlay: Jugada, vsPlay: Jugada) {
     //cada constante evalua si el && devuelve true, dependiendo
     //de myPlay y vsPlay enviada por parametro
@@ -62,6 +63,7 @@ const state = {
       true
     );
 
+    //depende lo que retorna el resultado
     if (perdi == true) {
       return "Derrota";
     } else {
@@ -73,16 +75,14 @@ const state = {
     }
   },
 
-  /*Aca pushea la nueva jugada acumulandola en el historial de jugada
-  ya que este historial es que se va a recorrer para calcular el score */
-
+  /*
   pushToHistory(play: Game) {
     const currentState = this.getState();
     currentState.history.push(play);
     const historyStingifeado = JSON.stringify(currentState.history);
     localStorage.setItem("history", historyStingifeado);
     this.setState(currentState);
-  },
+  },*/
 
   //devuelve la data del ultimo state
   getState() {
@@ -146,9 +146,6 @@ const state = {
   auth(callback) {
     const currentState = this.getState();
     //si el state tiene un mail guardado hace un post a la api
-    //a la direc /auth , que este matchea en la db a ver si existe
-    //el usuario, en el caso de poner una contraseña, tambien esta
-    //deberia controlarse en este paso
     if (currentState.usersData.email) {
       fetch(API_BASE_URL + "/auth", {
         method: "post",
@@ -163,10 +160,8 @@ const state = {
       }).then((res) => {
         res.json().then((resultado) => {
           //si el resultado.id existe etonces es un usuario existente
-          //voy a guardarme el id en el state para luego usarlo para
-          //poder crear las rooms
+          //voy a guardarme el id en el state
           //sino va a salir una alerta de que no se encuentra en la db
-          //por lo tanto no estara a autorizado para utilizar el chat
           if (resultado.id) {
             state.setIdUser(resultado.id);
             callback();
@@ -181,54 +176,55 @@ const state = {
     }
   },
 
+  //seteo el nombre y email en el state
   setNombreEmail(nombre: String, email: String) {
     const currentState = this.getState();
     currentState.usersData.myName = nombre;
     currentState.usersData.email = email;
-    console.log("el nuevo state tiene data.usersData.nombre: " + nombre);
-    console.log("el nuevo state tiene data.usersData.email: " + email);
+
     this.setState(currentState);
   },
 
+  //seteo el mail en el state
   setEmail(email: String) {
     const currentState = this.getState();
     currentState.usersData.email = email;
-    console.log("el nuevo state tiene data.usersData.email: " + email);
+
     this.setState(currentState);
   },
 
+  //seteo el IdUser en el state
   setIdUser(idUser: String) {
     const currentState = this.getState();
     currentState.usersData.idUser = idUser;
-    console.log("el nuevo state tiene data.usersData.idUser: " + idUser);
+
     this.setState(currentState);
   },
 
+  //seteo si es playerUno o playerDos en el state
   setPlayer(player: String) {
     const currentState = this.getState();
     currentState.usersData.player = player;
-    console.log("el nuevo state tiene data.usersData.player: " + player);
+
     this.setState(currentState);
   },
 
+  //seteo el id del la room en la db, es el num para ingresar a la room
   setRoomIdCorto(roomIdCorto: String) {
     const currentState = this.getState();
     currentState.usersData.roomIdCorto = roomIdCorto;
-    console.log(
-      "el nuevo state tiene data.usersData.roomIdCorto: " + roomIdCorto
-    );
+
     this.setState(currentState);
   },
 
+  //seteo el id de la room de la rtdb
   setRoomIdLargo(roomIdLargo: String) {
     const currentState = this.getState();
     currentState.usersData.roomIdLargo = roomIdLargo;
-    console.log(
-      "el nuevo state tiene data.usersData.roomIdLargo: " + roomIdLargo
-    );
     this.setState(currentState);
   },
 
+  //crea una room
   crearRoom(callback) {
     const currentState = this.getState();
     //si el estate tiene guardado un idUser entonces hace un post
@@ -249,14 +245,11 @@ const state = {
       }).then((res) => {
         res.json().then((resultado) => {
           //una vez que el backen creó la sala guardo el roomIdCorto
-          //en el state para despues conectarme a este cuando entre
-          //al chat y me conecte a la room con el onValue
           const roomIdCorto = resultado.id;
           state.setRoomIdCorto(roomIdCorto);
-          //con el callback voy a llamar a la route para que cuando termine
-          //de ejecutarse todo lo de esta funcion me envie hacia la siguiente pag
-          //la pag del chat y ahi es donde voy a conectarme con
-          //el state.conectRoomRt que utiliza el onValue de la rtdb
+          //con el callback puedo invocar la funcion que envio por parametro
+          //cuando termine de resonder la api
+
           callback();
         });
       });
@@ -267,7 +260,6 @@ const state = {
 
   //con esta funcion lo que hace el state es mandar el userId y el
   //roomIdCorto a la api para que esta le devuelva el roomIdLargo
-  //como este es el metodo get paso todo por url
   roomIdLargo(callback) {
     const currentState = state.getState();
     fetch(
@@ -278,22 +270,22 @@ const state = {
         currentState.usersData.idUser,
       {
         method: "GET",
-        //necesita este header para que funcione
+
         headers: {
           "content-type": "application/json",
         },
       }
     ).then((res) => {
       res.json().then((resultado) => {
-        //una vez que el backen creo la sala guardo el roomIdLargo
-        //en el state para despues conectarme a este cuando entre
-        //al chat y me conecte a la room con el onValue
+        //una vez que el backen creó la sala guardo el roomIdLargo
+        //en el state
         if (resultado.message) {
+          //si existe el message es que hubo un error asi que imprimo ese error
           console.error(resultado.message);
           callback();
         } else {
-          console.log("este es la data de la api roomidlargo" + resultado);
-
+          //una vez que el backen creó la sala guardo el roomIdLargo
+          //en el state
           const roomIdLargo = resultado;
           state.setRoomIdLargo(roomIdLargo);
           callback();
@@ -323,15 +315,12 @@ const state = {
         playerUno: dbRealTime.playerUno,
         playerDos: dbRealTime.playerDos,
       };
-      console.log(
-        "este es el currentGame.playerUno.name del OnValue: " +
-          currentState.currentGame.playerUno.name
-      );
 
       this.setState(currentState);
     });
   },
 
+  //me traigo el nombre del player guardado en la db
   getSetName(callback) {
     const currentState = state.getState();
     fetch(API_BASE_URL + "/nombre/" + currentState.usersData.idUser, {
@@ -342,43 +331,32 @@ const state = {
       },
     }).then((res) => {
       res.json().then((resultado) => {
-        //una vez que el backen creo la sala guardo el roomIdLargo
-        //en el state para despues conectarme a este cuando entre
-        //al chat y me conecte a la room con el onValue
-        console.log("este es la data de la api roomidlargo" + resultado.mombre);
-
+        //me guardo el nombre obtenido en el state
         const name = resultado.nombre;
         currentState.usersData.myName = name;
         state.setState(currentState);
-        console.log("el name es: " + state.getState().usersData.myName);
 
         callback();
       });
     });
   },
 
+  //indica si es el player 1 o el 2
   whoIsPlayer(callback) {
     const currentState = state.getState();
     fetch(API_BASE_URL + "/rooms/owner/" + currentState.usersData.roomIdCorto, {
       method: "GET",
-      //necesita este header para que funcione
+
       headers: {
         "content-type": "application/json",
       },
     }).then((res) => {
       res.json().then((resultado) => {
-        //una vez que el backen creo la sala guardo el roomIdLargo
-        //en el state para despues conectarme a este cuando entre
-        //al chat y me conecte a la room con el onValue
-        console.log("este es el owner de la room" + resultado);
-
         const owner = resultado;
         if (currentState.usersData.idUser != owner) {
           state.setPlayer("playerDos");
-          console.log("Ahora soy el playerDos");
         } else {
           state.setPlayer("playerUno");
-          console.log("Ahora soy el playerUno");
         }
 
         callback();
@@ -386,15 +364,14 @@ const state = {
     });
   },
 
+  //pongo los datos iniciales para poner todas las caracteristicas
+  //del objeto en la rtdb
   pushDatosInicialesRtdb(callback) {
     const currentState = this.getState();
-    //si el estate tiene guardado un idUser entonces hace un post
-    // a la api "/rooms" el cual creara la room en la bd y en la
-    //rtdb
+
     if (currentState.usersData.idUser) {
       fetch(API_BASE_URL + "/rooms/conect", {
         method: "post",
-        //necesita este header para que funcione
         headers: {
           "content-type": "application/json",
         },
@@ -415,15 +392,14 @@ const state = {
     }
   },
 
+  //pusheo si el jugador apreto en jugar y cambo a start = "start"
   pushStart(callback) {
     const currentState = this.getState();
-    //si el estate tiene guardado un idUser entonces hace un post
-    // a la api "/rooms" el cual creara la room en la bd y en la
-    //rtdb
+
     if (currentState.usersData.idUser) {
       fetch(API_BASE_URL + "/player/start", {
         method: "post",
-        //necesita este header para que funcione
+
         headers: {
           "content-type": "application/json",
         },
@@ -445,15 +421,12 @@ const state = {
     }
   },
 
+  //pusheEnd marca al start = "falso", lo que indica que no esta listo para jugar
   pushEnd() {
     const currentState = this.getState();
-    //si el estate tiene guardado un idUser entonces hace un post
-    // a la api "/rooms" el cual creara la room en la bd y en la
-    //rtdb
     if (currentState.usersData.idUser) {
       fetch(API_BASE_URL + "/player/start", {
         method: "post",
-        //necesita este header para que funcione
         headers: {
           "content-type": "application/json",
         },
@@ -473,15 +446,12 @@ const state = {
     }
   },
 
+  //pusheo la jugada a la rtdb
   pushPlay() {
     const currentState = this.getState();
-    //si el estate tiene guardado un idUser entonces hace un post
-    // a la api "/rooms" el cual creara la room en la bd y en la
-    //rtdb
     if (currentState.usersData.idUser) {
       fetch(API_BASE_URL + "/player/play", {
         method: "post",
-        //necesita este header para que funcione
         headers: {
           "content-type": "application/json",
         },
@@ -504,6 +474,7 @@ const state = {
     }
   },
 
+  //verifica si los 2 jugadores estan en start
   playersStart() {
     const cs = this.getState();
     if (
@@ -516,15 +487,12 @@ const state = {
     }
   },
 
+  //pushea la ultima jugada al historial que es un array en la rtdb
   pushHistoryDB(callback) {
     const currentState = this.getState();
-    //si el estate tiene guardado un idUser entonces hace un post
-    // a la api "/rooms" el cual creara la room en la bd y en la
-    //rtdb
     if (currentState.usersData.idUser) {
       fetch(API_BASE_URL + "/rooms/history", {
         method: "post",
-        //necesita este header para que funcione
         headers: {
           "content-type": "application/json",
         },
@@ -540,7 +508,6 @@ const state = {
         }),
       }).then((res) => {
         res.json().then(() => {
-          console.log("Todo ok");
           callback();
         });
       });

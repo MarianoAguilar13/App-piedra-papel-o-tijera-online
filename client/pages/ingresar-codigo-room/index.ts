@@ -23,6 +23,10 @@ class IngresarCodigoRoom extends HTMLElement {
         state.setRoomIdCorto(roomIdCorto);
         console.log(roomIdCorto);
 
+        //si existe la room con el id ingresado, obtengo el id de la room
+        //de la rtdb, si obtengo ese roomIdLargo entonces veo si es el player 1
+        //osea el owner de la room o si es el player 2 jugado invitado
+        //luego pushEnd marca que start no se encuentra en start
         state.roomIdLargo(() => {
           const dataCs = state.getState();
           if (dataCs.usersData.roomIdLargo) {
@@ -191,14 +195,6 @@ class IngresarCodigoRoom extends HTMLElement {
                     }
                   `;
     this.appendChild(style);
-
-    /*
-    const boton = document.querySelector(".boton") as any;
-
-    boton.addEventListener("click", (evento) => {
-      evento.preventDefault();
-      Router.go("./instructions");
-    });*/
   }
 }
 customElements.define("ingresar-codigo-room-page", IngresarCodigoRoom);

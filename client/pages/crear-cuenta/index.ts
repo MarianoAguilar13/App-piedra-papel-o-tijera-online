@@ -19,19 +19,16 @@ class CrearCuenta extends HTMLElement {
         const nombre = target.nombre.value;
         const email = target.email.value;
 
-        console.log(email);
-        console.log(nombre);
-
         //Primero se guarda en el state el nombre y email que fueron
         //ingresados en el formulario
 
         state.setNombreEmail(nombre, email);
 
-        //Ahora usamos el metodo sign del state para crear el nuevo
+        //Ahora usamos el metodo crearCuenta del state para crear el nuevo
         //usuario, con el nombre y email
         state.crearCuenta(() => {
           //si el email no existe, entonces se envia un msj y una alerta al usuario
-          //y si existe se crea la cuenta y lo redirecciona a la pag "/signin"
+          //y si existe se crea la cuenta y lo redirecciona a la pag iniciar-sesion
           const cs = state.getState();
           if (cs.usersData.email) {
             alert(
@@ -203,14 +200,6 @@ class CrearCuenta extends HTMLElement {
                     }
                   `;
     this.appendChild(style);
-
-    /*
-    const boton = document.querySelector(".boton") as any;
-
-    boton.addEventListener("click", (evento) => {
-      evento.preventDefault();
-      Router.go("/opciones-rooms");
-    });*/
   }
 }
 customElements.define("crear-cuenta-page", CrearCuenta);

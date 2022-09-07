@@ -100,7 +100,8 @@ class OpcionesRooms extends HTMLElement {
 
     botonNuevo.addEventListener("click", (evento) => {
       evento.preventDefault();
-
+      //si hace click en nueva room, crea la nueva room
+      //guarda el IdLargo de la rtdb e identifica si es player 1 o 2
       state.crearRoom(() => {
         state.roomIdLargo(() => {
           state.whoIsPlayer(() => {

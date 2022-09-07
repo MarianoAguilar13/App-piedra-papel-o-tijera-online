@@ -4,19 +4,13 @@ import { Router } from "../../../node_modules/@vaadin/router";
 function resultadosJugadas() {
   const newData = state.getState();
 
-  //guardo la ultima jugada
   const currentGame = newData.currentGame;
 
-  //este div es que que va a contener la jugada del playe, de la pc
-  //y tambien el boton del score
   const div = document.querySelector(".container-result") as any;
-
-  /*Por cada if verifica que jugo la computadora y el player  
-    depende que jugaron se crea un elemento img y se carga la imagen
-    correspondiente*/
 
   /*
     Me fijo si el usuario es el playerUno o el playerDos
+    para mostrar las jugadas desde la perspectiva de cada jugador
     */
   if (newData.usersData.player == "playerUno") {
     if (currentGame.playerDos.choice == "piedra") {
@@ -44,6 +38,8 @@ function resultadosJugadas() {
       div.appendChild(jugadaCompuImgEl);
     }
 
+    //aca inserto entre la jugada del player 1 y el 2, un boton para
+    //ver el resultado de quien gano y el historial
     const botonVerScoreEl = document.createElement("button");
     botonVerScoreEl.classList.add("boton");
     botonVerScoreEl.textContent = "Ver Score";
@@ -213,16 +209,6 @@ class Result extends HTMLElement {
   `;
 
     this.appendChild(style);
-
-    /*  const botonScoreEl = document.querySelector(".boton") as any;
-
-    if (botonScoreEl != null) {
-      botonScoreEl.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        Router.go("/result-score");
-      });
-    }*/
   }
 }
 customElements.define("result-page", Result);

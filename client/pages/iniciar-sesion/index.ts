@@ -27,9 +27,7 @@ class IniciarSesion extends HTMLElement {
         state.setEmail(email);
 
         //Ahora vamos a autorizar al usuario si existe en la db
-        //si existe el state deberia guardar el idUser, que se consiguio
-        //a traves del state que hizo una llamada a la api para ver
-        //si esta
+        //si existe el state deberia guardar el idUser
 
         state.auth(() => {
           const cs = state.getState();
@@ -204,14 +202,6 @@ class IniciarSesion extends HTMLElement {
                     }
                   `;
     this.appendChild(style);
-
-    /*
-    const boton = document.querySelector(".boton") as any;
-
-    boton.addEventListener("click", (evento) => {
-      evento.preventDefault();
-      Router.go("./opciones-rooms");
-    });*/
   }
 }
 customElements.define("iniciar-sesion-page", IniciarSesion);
