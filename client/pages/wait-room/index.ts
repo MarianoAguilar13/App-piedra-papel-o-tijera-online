@@ -21,34 +21,34 @@ function timerJugada() {
       Router.go("/game");
     }
     if (counter == 1) {
-      cuentaRegresiva.textContent = "10";
+      cuentaRegresiva.textContent = "9";
     }
     if (counter == 2) {
       cuentaRegresiva.textContent = "9";
     }
     if (counter == 3) {
-      cuentaRegresiva.textContent = "8";
-    }
-    if (counter == 4) {
       cuentaRegresiva.textContent = "7";
     }
-    if (counter == 5) {
+    if (counter == 4) {
       cuentaRegresiva.textContent = "6";
     }
-    if (counter == 6) {
+    if (counter == 5) {
       cuentaRegresiva.textContent = "5";
     }
-    if (counter == 7) {
+    if (counter == 6) {
       cuentaRegresiva.textContent = "4";
     }
-    if (counter == 8) {
+    if (counter == 7) {
       cuentaRegresiva.textContent = "3";
     }
-    if (counter == 9) {
+    if (counter == 8) {
       cuentaRegresiva.textContent = "2";
     }
-    if (counter == 10) {
+    if (counter == 9) {
       cuentaRegresiva.textContent = "1";
+    }
+    if (counter == 10) {
+      cuentaRegresiva.textContent = "0";
     }
     if (counter == 11) {
       cuentaRegresiva.textContent = "0";
@@ -79,7 +79,7 @@ class WaitRoom extends HTMLElement {
               <div class="container">
                   <p class="room-cod"> codigo-room: ${roomCod}</p>
                   <h3 class="texto-instructions">Esperando al oponente.</h3>
-                  <h1 class="container-cuenta-regresiva"></h1>
+                  <h1 class="container-cuenta-regresiva">10</h1>
               </div>
 
           `;
@@ -103,10 +103,10 @@ class WaitRoom extends HTMLElement {
                       .container-cuenta-regresiva{
                         font-family: "Poppins", sans-serif;
                         font-weight: bold;
-                        font-size: 256px;
+                        font-size: 200px;
                         text-align: center;
                         color: var(--titulos);
-                        margin-top: 100px;
+                        margin-top: 40px;
                     }
                       
                       .texto-instructions {

@@ -32,9 +32,11 @@ class Instructions extends HTMLElement {
                   <p class="texto-instructions">Presioná jugar
                   y elegí: piedra, papel o tijera antes de que pasen los 3 segundos, pasados los 3 segundos se eligirá una opción al azar.</p>
                   <button-normal-el class="boton"> ¡Jugar! </button-normal-el>
-                  <tijeras-el class= "tijeras-img"></tijeras-el>                
-                  <piedra-el class= "piedra-img"></piedra-el>
-                  <papel-el class= "papel-img"></papel-el>
+                  <div class="container-opciones">
+                    <tijeras-el class= "tijeras-img"></tijeras-el>                
+                    <piedra-el class= "piedra-img"></piedra-el>
+                    <papel-el class= "papel-img"></papel-el>
+                  </div>
               </div>
           `;
 
@@ -91,39 +93,44 @@ class Instructions extends HTMLElement {
                     }
                     
                       
-                      .piedra-img {
+                    .container-opciones{
+                      min-height: 120px;
+                      width: 100%;                   
+                      padding: 0 10px;
+                      margin-top: 80px; 
+                      display: flex;
+                      flex-direction: row;
+                      align-self: flex-end;
+                      justify-content: center;
+                    }
+                    
+                    .piedra-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 160px;
+                        padding-right: 30px;
                     }
                     @media (min-width: 600px) {
                       .piedra-img {
-                        left: 640px;
+                        
                       }
                     }
 
                     .papel-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 275px;
+                        
                     }
                     @media (min-width: 600px) {
                       .papel-img {
-                        left: 755px;
+                        
                       }
                     }
 
                     .tijeras-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 50px;
+                        padding-right: 30px;
                     }
                     @media (min-width: 600px) {
                       .tijeras-img {
-                        left: 530px;
+                        
                       }
                     }
                     `;

@@ -58,9 +58,7 @@ class IngresarCodigoRoom extends HTMLElement {
                   <button class="boton"> Ingresar código </button>
                 </form>
               </div>
-              <tijeras-el class= "tijeras-img"></tijeras-el>                
-              <piedra-el class= "piedra-img"></piedra-el>
-              <papel-el class= "papel-img"></papel-el>
+              
 
             </div>
         `;

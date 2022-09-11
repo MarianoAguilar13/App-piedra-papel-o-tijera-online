@@ -11,10 +11,11 @@ class Welcome extends HTMLElement {
                 <h1 class="titulo">Piedra, Papel o Tijera</h1>
                 <button-normal-el class="boton-iniciar"> Iniciar sesión </button-normal-el>
                 <button-normal-el class="boton-crear"> Nueva cuenta </button-normal-el>
-                <tijeras-el class= "tijeras-img"></tijeras-el>                
-                <piedra-el class= "piedra-img"></piedra-el>
-                <papel-el class= "papel-img"></papel-el>
-
+                <div class="container-opciones">
+                  <tijeras-el class= "tijeras-img"></tijeras-el>                
+                  <piedra-el class= "piedra-img"></piedra-el>
+                  <papel-el class= "papel-img"></papel-el>
+                </div>
             </div>
         `;
 
@@ -55,40 +56,45 @@ class Welcome extends HTMLElement {
                         margin-bottom: 20px;
                         }
                     }
+
+                    .container-opciones{
+                      min-height: 120px;
+                      width: 100%;                   
+                      padding: 0 10px;
+                      margin-top: 40px; 
+                      display: flex;
+                      flex-direction: row;
+                      align-self: flex-end;
+                      justify-content: center;
+                    }
                     
                     .piedra-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 160px;
+                        padding-right: 30px;
                     }
                     @media (min-width: 600px) {
                       .piedra-img {
-                        left: 640px;
+                        
                       }
                     }
 
                     .papel-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 275px;
+                        
                     }
                     @media (min-width: 600px) {
                       .papel-img {
-                        left: 755px;
+                        
                       }
                     }
 
                     .tijeras-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 50px;
+                        padding-right: 30px;
                     }
                     @media (min-width: 600px) {
                       .tijeras-img {
-                        left: 530px;
+                        
                       }
                     }
                   `;

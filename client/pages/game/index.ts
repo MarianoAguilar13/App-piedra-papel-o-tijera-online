@@ -16,13 +16,13 @@ function timerJugada() {
     //Cuenta regresiva
 
     if (counter == 1) {
-      cuentaRegresiva.textContent = "3";
-    }
-    if (counter == 2) {
       cuentaRegresiva.textContent = "2";
     }
-    if (counter == 3) {
+    if (counter == 2) {
       cuentaRegresiva.textContent = "1";
+    }
+    if (counter == 3) {
+      cuentaRegresiva.textContent = "0";
     }
 
     // Si pasan mas de 3 se elige una opción de manera automatica
@@ -107,12 +107,13 @@ class Game extends HTMLElement {
   render() {
     this.innerHTML = `
                 <div class="container">  
-                <h3 class="texto-instructions">Elija su opción.</h3>
-                    <h1 class="container-cuenta-regresiva"></h1>
-                    <tijeras-el class= "tijeras-img"></tijeras-el>                
-                    <piedra-el class= "piedra-img"></piedra-el>
-                    <papel-el class= "papel-img"></papel-el>
-
+                    <h3 class="texto-instructions">Elija su opción.</h3>
+                    <h1 class="container-cuenta-regresiva">3</h1>
+                    <div class="container-opciones">
+                      <tijeras-el class= "tijeras-img"></tijeras-el>                
+                      <piedra-el class= "piedra-img"></piedra-el>
+                      <papel-el class= "papel-img"></papel-el>
+                    </div>
                 </div>
             `;
 
@@ -137,17 +138,17 @@ class Game extends HTMLElement {
                           font-size: 36px;
                           text-align: center;
                           color: black;
-                          margin-top: 40px;
-                          margin-bottom: 60px;
+                          margin-top: 60px;
+                          margin-bottom: 20px;
                       }
 
                         .container-cuenta-regresiva{
                             font-family: "Poppins", sans-serif;
                             font-weight: bold;
-                            font-size: 256px;
+                            font-size: 128px;
                             text-align: center;
                             color: var(--titulos);
-                            margin-top: 100px;
+                            margin-top: 120px;
                         }
 
                         .room-cod{
@@ -159,42 +160,46 @@ class Game extends HTMLElement {
                           left: 20px;
                       }
 
+                      .container-opciones{
+                        min-height: 120px;
+                        width: 100%;                   
+                        padding: 0 10px;
+                        margin-top: 120px; 
+                        display: flex;
+                        flex-direction: row;
+                        align-self: flex-end;
+                        justify-content: center;
+                      }
+                      
+                      .piedra-img {
+                          height: 150px;
+                          padding-right: 30px;
+                      }
+                      @media (min-width: 600px) {
                         .piedra-img {
-                            height: 150px;
-                            position: fixed;
-                            bottom: -20px;
-                            left: 160px;
+                          
                         }
-                        @media (min-width: 600px) {
-                          .piedra-img {
-                            left: 640px;
-                          }
-                        }
-    
+                      }
+  
+                      .papel-img {
+                          height: 150px;
+                          
+                      }
+                      @media (min-width: 600px) {
                         .papel-img {
-                            height: 150px;
-                            position: fixed;
-                            bottom: -20px;
-                            left: 275px;
+                          
                         }
-                        @media (min-width: 600px) {
-                          .papel-img {
-                            left: 755px;
-                          }
-                        }
-    
+                      }
+  
+                      .tijeras-img {
+                          height: 150px;
+                          padding-right: 30px;
+                      }
+                      @media (min-width: 600px) {
                         .tijeras-img {
-                            height: 150px;
-                            position: fixed;
-                            bottom: -20px;
-                            left: 50px;
+                          
                         }
-                        @media (min-width: 600px) {
-                          .tijeras-img {
-                            left: 530px;
-                          }
-                        }
-                        
+                      }
                       `;
     this.appendChild(style);
   }

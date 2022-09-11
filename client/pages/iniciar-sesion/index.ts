@@ -65,9 +65,7 @@ class IniciarSesion extends HTMLElement {
                   <button class="boton"> Iniciar sesión </button>
                 </form>
               </div>
-              <tijeras-el class= "tijeras-img"></tijeras-el>                
-              <piedra-el class= "piedra-img"></piedra-el>
-              <papel-el class= "papel-img"></papel-el>
+              
 
             </div>
         `;
@@ -110,39 +108,44 @@ class IniciarSesion extends HTMLElement {
                         }
                     }
                     
+                    .container-opciones{
+                      min-height: 120px;
+                      width: 100%;                   
+                      padding: 0 10px;
+                      margin-top: 40px; 
+                      display: flex;
+                      flex-direction: row;
+                      align-self: flex-end;
+                      justify-content: center;
+                    }
+                    
                     .piedra-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 160px;
+                        padding-right: 30px;
                     }
                     @media (min-width: 600px) {
                       .piedra-img {
-                        left: 640px;
+                        
                       }
                     }
 
                     .papel-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 275px;
+                        
                     }
                     @media (min-width: 600px) {
                       .papel-img {
-                        left: 755px;
+                        
                       }
                     }
 
                     .tijeras-img {
                         height: 150px;
-                        position: fixed;
-                        bottom: -50px;
-                        left: 50px;
+                        padding-right: 30px;
                     }
                     @media (min-width: 600px) {
                       .tijeras-img {
-                        left: 530px;
+                        
                       }
                     }
 
