@@ -79,13 +79,10 @@ class WaitResult extends HTMLElement {
   }
 
   render() {
-    const dataCs = state.getState();
-    const roomCod = dataCs.usersData.roomIdCorto;
-
     this.innerHTML = `
               <div class="container">
                   <h3 class="texto-instructions">Esperando a que el oponente termine de elegir su opción...</h3>
-                  <p class="room-cod"> codigo-room: ${roomCod}</p>
+                  
                   <h1 class="container-cuenta-regresiva"></h1>
               </div>
 

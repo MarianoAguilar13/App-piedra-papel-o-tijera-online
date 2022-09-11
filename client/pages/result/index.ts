@@ -141,12 +141,9 @@ class Result extends HTMLElement {
   }
 
   render() {
-    const dataCs = state.getState();
-    const roomCod = dataCs.usersData.roomIdCorto;
-
     this.innerHTML = `
               <div class="container-result"></div>
-              <p class="room-cod"> codigo-room: ${roomCod}</p>
+              
           `;
 
     let style = document.createElement("style");

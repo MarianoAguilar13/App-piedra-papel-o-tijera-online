@@ -77,8 +77,8 @@ class WaitRoom extends HTMLElement {
 
     this.innerHTML = `
               <div class="container">
-                  <h3 class="texto-instructions">Esperando al oponente.</h3>
                   <p class="room-cod"> codigo-room: ${roomCod}</p>
+                  <h3 class="texto-instructions">Esperando al oponente.</h3>
                   <h1 class="container-cuenta-regresiva"></h1>
               </div>
 
@@ -130,11 +130,19 @@ class WaitRoom extends HTMLElement {
                       .room-cod{
                         font-family: "Poppins", sans-serif;
                         font-weight: 700;
-                        position: fixed;
-                        font-size: 24px;
-                        top: 20px;
-                        left: 20px;
-                    }
+                        font-size: 28px;
+                        text-align: center;
+                        color: black;
+                        margin-top: 10px;
+                       
+                      }
+
+                      @media (min-width: 600px) {
+                        .room-cod {               
+                        font-size: 28px;                         
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                        }
                       
                       .piedra-img {
                         height: 150px;

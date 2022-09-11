@@ -28,10 +28,9 @@ class Instructions extends HTMLElement {
 
     this.innerHTML = `
               <div class="container">
-
+                  <p class="room-cod"> codigo-room: ${roomCod}</p>
                   <p class="texto-instructions">Presioná jugar
                   y elegí: piedra, papel o tijera antes de que pasen los 3 segundos, pasados los 3 segundos se eligirá una opción al azar.</p>
-                  <p class="room-cod"> codigo-room: ${roomCod}</p>
                   <button-normal-el class="boton"> ¡Jugar! </button-normal-el>
                   <tijeras-el class= "tijeras-img"></tijeras-el>                
                   <piedra-el class= "piedra-img"></piedra-el>
@@ -74,13 +73,23 @@ class Instructions extends HTMLElement {
                       }
                       
                       .room-cod{
-                          font-family: "Poppins", sans-serif;
-                          font-weight: 700;
-                          position: fixed;
-                          font-size: 24px;
-                          top: 20px;
-                          left: 20px;
+                        font-family: "Poppins", sans-serif;
+                        font-weight: 700;
+                        font-size: 28px;
+                        text-align: center;
+                        color: black;
+                        margin-top: 10px;
+                       
                       }
+
+                      @media (min-width: 600px) {
+                        .room-cod {               
+                        font-size: 28px;                         
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                        }
+                    }
+                    
                       
                       .piedra-img {
                         height: 150px;

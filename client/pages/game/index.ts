@@ -105,12 +105,8 @@ class Game extends HTMLElement {
   }
 
   render() {
-    const dataCs = state.getState();
-    const roomCod = dataCs.usersData.roomIdCorto;
-
     this.innerHTML = `
-                <div class="container">
-                <p class="room-cod"> codigo-room: ${roomCod}</p>
+                <div class="container">  
                 <h3 class="texto-instructions">Elija su opción.</h3>
                     <h1 class="container-cuenta-regresiva"></h1>
                     <tijeras-el class= "tijeras-img"></tijeras-el>                
