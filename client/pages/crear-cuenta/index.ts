@@ -19,29 +19,36 @@ class CrearCuenta extends HTMLElement {
         const nombre = target.nombre.value;
         const email = target.email.value;
 
-        //Primero se guarda en el state el nombre y email que fueron
-        //ingresados en el formulario
+        if (nombre == "" || nombre[0] == " ") {
+          alert(
+            "Su nombre esta en blanco o comienza con un ' ' (espacio), por favor ingrese un nombre válido"
+          );
+          Router.go("/");
+        } else {
+          //Primero se guarda en el state el nombre y email que fueron
+          //ingresados en el formulario
 
-        state.setNombreEmail(nombre, email);
+          state.setNombreEmail(nombre, email);
 
-        //Ahora usamos el metodo crearCuenta del state para crear el nuevo
-        //usuario, con el nombre y email
-        state.crearCuenta(() => {
-          //si el email no existe, entonces se envia un msj y una alerta al usuario
-          //y si existe se crea la cuenta y lo redirecciona a la pag iniciar-sesion
-          const cs = state.getState();
-          if (cs.usersData.email) {
-            alert(
-              "Usted ya se encuentra registrado, ingrese sesión con este mismo email."
-            );
-            Router.go("/iniciar-sesion");
-          } else {
-            alert(
-              "Se olvido de ingresar un email valido, por favor complete el formulario nuevamente con los datos correctos"
-            );
-            Router.go("/crear-cuenta");
-          }
-        });
+          //Ahora usamos el metodo crearCuenta del state para crear el nuevo
+          //usuario, con el nombre y email
+          state.crearCuenta(() => {
+            //si el email no existe, entonces se envia un msj y una alerta al usuario
+            //y si existe se crea la cuenta y lo redirecciona a la pag iniciar-sesion
+            const cs = state.getState();
+            if (cs.usersData.email) {
+              alert(
+                "Usted ya se encuentra registrado, ingrese sesión con este mismo email."
+              );
+              Router.go("/iniciar-sesion");
+            } else {
+              alert(
+                "Se olvido de ingresar un email valido, por favor complete el formulario nuevamente con los datos correctos"
+              );
+              Router.go("/crear-cuenta");
+            }
+          });
+        }
       });
     }
   }
