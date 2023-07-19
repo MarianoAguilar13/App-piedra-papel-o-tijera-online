@@ -1,6 +1,6 @@
 import * as admin from "../node_modules/firebase-admin";
 //import * as serviceAccount from "./rtdb-key.json";
-const serviceAccount = require("../etc/secrets/rtdb-key.json");
+const serviceAccount = require("/etc/secrets/rtdb-key.json");
 
 //importante para que no falle la rtdb
 /*
