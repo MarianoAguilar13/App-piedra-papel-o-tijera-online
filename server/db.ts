@@ -12,7 +12,7 @@ You need to add your database url in admin.initializeApp
 */
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as any),
+  credential: admin.credential.cert(serviceAccount),
   databaseURL:
     "https://juego-piedra-papel-o-tijera-default-rtdb.firebaseio.com/",
 });
