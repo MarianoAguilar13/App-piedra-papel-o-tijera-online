@@ -7,9 +7,9 @@ import {
   DataSnapshot,
 } from "../node_modules/firebase/database";
 
-const API_BASE_URL = "http://localhost:3000";
+//const API_BASE_URL = "http://localhost:3000";
 
-//const API_BASE_URL = "https://app-piedra-papel-o-tijeras.herokuapp.com";
+const API_BASE_URL = "https://piedra-papel-tijera-online-h78d.onrender.com";
 
 type Jugada = "piedra" | "papel" | "tijeras";
 type Game = {
