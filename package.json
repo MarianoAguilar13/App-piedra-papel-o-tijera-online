@@ -24,7 +24,7 @@
     "build:api": "tsc",
     "test": "ava",
     "build": "yarn build:front && yarn build:api",
-    "start": "node ./server/index.js"
+    "start": "nodemon --watch ./server/index.ts --exec ts-node ./server/dev.ts"
   },
   "devDependencies": {
     "process": "^0.11.10",

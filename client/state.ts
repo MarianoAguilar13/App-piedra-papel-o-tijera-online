@@ -8,9 +8,9 @@ import {
 } from "../node_modules/firebase/database";
 import map from "../node_modules/lodash";
 
-//const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://localhost:3000";
 
-const API_BASE_URL = "https://app-piedra-papel-o-tijeras.herokuapp.com";
+//const API_BASE_URL = "https://app-piedra-papel-o-tijeras.herokuapp.com";
 
 type Jugada = "piedra" | "papel" | "tijeras";
 type Game = {
