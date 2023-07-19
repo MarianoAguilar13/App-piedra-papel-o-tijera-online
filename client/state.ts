@@ -6,7 +6,6 @@ import {
   onValue,
   DataSnapshot,
 } from "../node_modules/firebase/database";
-import map from "../node_modules/lodash";
 
 const API_BASE_URL = "http://localhost:3000";
 

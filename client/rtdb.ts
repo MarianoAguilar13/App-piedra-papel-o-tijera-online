@@ -10,11 +10,10 @@ import {
 const firebaseConfig = {
   //usuarios y servicios => cuentas de servicios => secretos de la base de datos
   //ahi encuentro la key
-  apiKey: "WoCyzTj99w0uggZ3GKqfHNm3RittuB1ATncuWbCi",
-  databaseURL:
-    "https://juego-piedra-papel-o-tijera-default-rtdb.firebaseio.com/",
-  authDomain: "juego-piedra-papel-o-tijera.firebaseapp.com",
-  projectId: "juego-piedra-papel-o-tijera",
+  apiKey: process.env.APIKEY,
+  databaseURL: process.env.DATABASEURL,
+  authDomain: process.env.AUTHDOMAIN,
+  projectId: process.env.PROJECTID,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
